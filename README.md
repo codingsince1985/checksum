@@ -1,4 +1,4 @@
 checksum
 ========
 
-Google Go (golang) implementation of computing message digest, like MD5 and SHA256, etc, for potentially large files.
+Computing message digest, like MD5 and SHA256, in Google Go (golang) for potentially large files.
