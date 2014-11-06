@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestMd5(t *testing.T) {
+func TestMd5sum(t *testing.T) {
 	file := "/home/jerry/Downloads/ubuntu-gnome-14.10-desktop-i386.iso"
 
 	md5sum, error := MD5sum(file)

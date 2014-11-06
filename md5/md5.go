@@ -29,7 +29,7 @@ func MD5sum(filename string) (string, error) {
 			return "", err
 		}
 
-		io.WriteString(hash, string(buf[:n]))
+		hash.Write(buf[:n])
 	}
 
 	checksum := fmt.Sprintf("%x", hash.Sum(nil))
