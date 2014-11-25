@@ -8,14 +8,21 @@ import (
 	"os"
 )
 
+const bufferSize = 65536
+
 func MD5sum(filename string) (string, error) {
-	const bufferSize = 65536
+	if info, err := os.Stat(filename); err == nil {
+		if info.IsDir() {
+			return "", nil
+		}
+	} else {
+		return "", err
+	}
 
 	file, err := os.Open(filename)
 	if err != nil {
 		return "", err
 	}
-
 	defer file.Close()
 
 	hash := md5.New()
