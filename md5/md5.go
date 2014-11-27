@@ -11,12 +11,10 @@ import (
 const bufferSize = 65536
 
 func MD5sum(filename string) (string, error) {
-	if info, err := os.Stat(filename); err == nil {
-		if info.IsDir() {
-			return "", nil
-		}
-	} else {
+	if info, err := os.Stat(filename); err != nil {
 		return "", err
+	} else if info.IsDir() {
+		return "", nil
 	}
 
 	file, err := os.Open(filename)
@@ -32,7 +30,6 @@ func MD5sum(filename string) (string, error) {
 			if err == io.EOF {
 				break
 			}
-
 			return "", err
 		}
 
