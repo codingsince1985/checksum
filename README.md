@@ -7,6 +7,6 @@ Import
 -
 `import "github.com/codingsince1985/checksum/md5"`
 
-Installation
+Install
 -
-`$ go get github.com/codingsince1985/checksum/md5`
+`go get github.com/codingsince1985/checksum/md5`
