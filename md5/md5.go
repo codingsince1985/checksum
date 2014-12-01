@@ -1,3 +1,4 @@
+// Package md5 computes MD5 checksum for large files
 package md5
 
 import (
@@ -10,6 +11,7 @@ import (
 
 const bufferSize = 65536
 
+// MD5sum returns MD5 checksum of filename
 func MD5sum(filename string) (string, error) {
 	if info, err := os.Stat(filename); err != nil {
 		return "", err
