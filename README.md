@@ -26,4 +26,4 @@ func main() {
 ```
 License
 ==
-geo-goang is distributed under the terms of the MIT license. See LICENSE for details.
+checksum is distributed under the terms of the MIT license. See LICENSE for details.
