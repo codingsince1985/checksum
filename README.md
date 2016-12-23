@@ -6,7 +6,7 @@ Computing message digest in golang for potentially large files.
 
 Install
 --
-`go get -d gopkg.in/codingsince1985/checksum.v1`
+`go get -d gopkg.in/codingsince1985/checksum.v2`
 
 Usage
 --
@@ -15,11 +15,11 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/codingsince1985/checksum.v1/md5"
+	"gopkg.in/codingsince1985/checksum.v2/md5"
 )
 
 func main() {
-	file := "/home/jerry/Downloads/ubuntu-gnome-15.04-desktop-amd64.iso"
+	file := "/home/jerry/Downloads/ubuntu-gnome-16.04-desktop-amd64.iso"
 	md5sum, _ := md5.MD5sum(file)
 	fmt.Println(md5sum)
 }

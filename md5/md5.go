@@ -13,10 +13,8 @@ const bufferSize = 65536
 
 // MD5sum returns MD5 checksum of filename
 func MD5sum(filename string) (string, error) {
-	if info, err := os.Stat(filename); err != nil {
+	if info, err := os.Stat(filename); err != nil || info.IsDir() {
 		return "", err
-	} else if info.IsDir() {
-		return "", nil
 	}
 
 	file, err := os.Open(filename)
@@ -26,18 +24,16 @@ func MD5sum(filename string) (string, error) {
 	defer file.Close()
 
 	hash := md5.New()
-	for buf, reader := make([]byte, bufferSize), bufio.NewReader(file); ; {
-		n, err := reader.Read(buf)
-		if err != nil {
-			if err == io.EOF {
-				break
-			}
+	buf := make([]byte, bufferSize)
+	reader := bufio.NewReader(file)
+	for {
+		if n, err := reader.Read(buf); err == nil {
+			hash.Write(buf[:n])
+		} else if err == io.EOF {
+			break
+		} else {
 			return "", err
 		}
-
-		hash.Write(buf[:n])
 	}
-
-	checksum := fmt.Sprintf("%x", hash.Sum(nil))
-	return checksum, nil
+	return fmt.Sprintf("%x", hash.Sum(nil)), nil
 }
