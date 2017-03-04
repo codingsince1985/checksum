@@ -26,12 +26,15 @@ func MD5sum(filename string) (string, error) {
 	hash := md5.New()
 	buf := make([]byte, bufferSize)
 	reader := bufio.NewReader(file)
+here:
 	for {
-		if n, err := reader.Read(buf); err == nil {
+		n, err := reader.Read(buf)
+		switch err {
+		case nil:
 			hash.Write(buf[:n])
-		} else if err == io.EOF {
-			break
-		} else {
+		case io.EOF:
+			break here
+		default:
 			return "", err
 		}
 	}
