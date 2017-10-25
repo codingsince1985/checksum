@@ -1,6 +1,7 @@
 checksum
 ==
 [![GoDoc](https://godoc.org/github.com/codingsince1985/checksum?status.svg)](https://godoc.org/github.com/codingsince1985/checksum)
+[![Go Report Card](https://goreportcard.com/badge/codingsince1985/checksum)](https://goreportcard.com/report/codingsince1985/checksum)
 
 Computing message digest in golang for potentially large files.
 
