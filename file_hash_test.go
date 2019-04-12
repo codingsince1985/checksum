@@ -49,6 +49,24 @@ func TestTransition(t *testing.T) {
 	}
 }
 
+func TestSHA256sumFile(t *testing.T) {
+	file, err := prepareFile()
+	if err != nil {
+		t.Logf("could not create test file: %s", err)
+		t.FailNow()
+	}
+	defer func() {
+		err := os.Remove(file)
+		if err != nil {
+			t.Logf("could not remove test file: %s", err)
+		}
+	}()
+
+	if sha256sum, err := SHA256sum(file); err != nil || sha256sum != "1307990e6ba5ca145eb35e99182a9bec46531bc54ddf656a602c780fa0240dee" {
+		t.Error("SHA256sum(file) failed", sha256sum, err)
+	}
+}
+
 func TestMd5sumFile(t *testing.T) {
 	file, err := prepareFile()
 	if err != nil {
