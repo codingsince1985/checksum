@@ -16,12 +16,12 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/codingsince1985/checksum.v2/md5"
+	"gopkg.in/codingsince1985/checksum.v2"
 )
 
 func main() {
 	file := "/home/jerry/Downloads/ubuntu-gnome-16.04-desktop-amd64.iso"
-	md5sum, _ := md5.MD5sum(file)
+	md5sum, _ := checksum.MD5sum(file)
 	fmt.Println(md5sum)
 }
 ```
