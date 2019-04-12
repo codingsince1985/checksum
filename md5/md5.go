@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"crypto/md5"
 	"fmt"
+	"hash"
 	"io"
 	"os"
 )
@@ -21,21 +22,26 @@ func MD5sum(filename string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
-	hash := md5.New()
+	hasher := md5.New()
 	buf := make([]byte, bufferSize)
 	reader := bufio.NewReader(file)
 here:
 	for {
 		switch n, err := reader.Read(buf); err {
 		case nil:
-			hash.Write(buf[:n])
+			hasher.Write(buf[:n])
 		case io.EOF:
 			break here
 		default:
 			return "", err
 		}
 	}
-	return fmt.Sprintf("%x", hash.Sum(nil)), nil
+	return fmt.Sprintf("%x", hasher.Sum(nil)), nil
+}
+
+// Sum calculates the hash based on a provided hash provider
+func Sum(hash hash.Hash, filename string) (string, error) {
+	return "", nil
 }
