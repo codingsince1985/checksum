@@ -1,7 +1,6 @@
 package checksum
 
 import (
-	m "crypto/md5"
 	"github.com/mitchellh/go-homedir"
 	"io/ioutil"
 	"os"
@@ -18,35 +17,6 @@ func prepareFile() (string, error) {
 		return "", err
 	}
 	return file.Name(), nil
-}
-
-func TestTransition(t *testing.T) {
-	file, err := prepareFile()
-	if err != nil {
-		t.Logf("could not create test file: %s", err)
-		t.FailNow()
-	}
-	defer func() {
-		err := os.Remove(file)
-		if err != nil {
-			t.Logf("could not remove test file: %s", err)
-		}
-	}()
-
-	md5sum, errMD5 := MD5sum(file)
-	if errMD5 != nil {
-		t.Logf("error calculating old hash: %s", err)
-		t.FailNow()
-	}
-	sum, errSum := Sum(m.New(), file)
-	if errSum != nil {
-		t.Logf("error calculating new hash: %s", err)
-		t.FailNow()
-	}
-	if md5sum != sum {
-		t.Logf("hash mismatch: old [%s] != new [%s]", md5sum, sum)
-		t.Fail()
-	}
 }
 
 func TestSHA256sumFile(t *testing.T) {
