@@ -2,21 +2,51 @@ package md5_test
 
 import (
 	"github.com/codingsince1985/checksum/md5"
+	"github.com/mitchellh/go-homedir"
+	"io/ioutil"
+	"os"
+	"path"
 	"testing"
 )
 
-func TestMd5sumFile(t *testing.T) {
-	file := "/home/jerry/Downloads/ubuntu-gnome-16.04-desktop-amd64.iso"
+func prepareFile() (string, error) {
+	file, err := ioutil.TempFile("", "prefix")
+	if err != nil {
+		return "", err
+	}
+	if err := ioutil.WriteFile(file.Name(), []byte("some data"), 0600); err != nil {
+		return "", err
+	}
+	return file.Name(), nil
+}
 
-	if md5sum, error := md5.MD5sum(file); error != nil || md5sum != "d49a40366d6319501ff5b2d11b3bbf0b" {
-		t.Error("Md5sum(file) failed", md5sum, error)
+func TestMd5sumFile(t *testing.T) {
+	file, err := prepareFile()
+	if err != nil {
+		t.Logf("could not create test file: %s", err)
+		t.FailNow()
+	}
+	defer func () {
+		err := os.Remove(file)
+		if err != nil {
+			t.Logf("could not remove test file: %s", err)
+		}
+	}()
+
+	if md5sum, err := md5.MD5sum(file); err != nil || md5sum != "1e50210a0202497fb79bc38b6ade6c34" {
+		t.Error("Md5sum(file) failed", md5sum, err)
 	}
 }
 
 func TestMd5sumDir(t *testing.T) {
-	file := "/home/jerry/Downloads"
+	homeDirectory, err := homedir.Dir()
+	if err != nil {
+		t.Logf("could not get home directory: %s", err)
+		t.FailNow()
+	}
+	file := path.Join(homeDirectory , "Downloads")
 
-	if md5sum, error := md5.MD5sum(file); error != nil || md5sum != "" {
-		t.Error("Md5sum(dir) failed", md5sum, error)
+	if md5sum, err := md5.MD5sum(file); err != nil || md5sum != "" {
+		t.Error("Md5sum(dir) failed", md5sum, err)
 	}
 }
