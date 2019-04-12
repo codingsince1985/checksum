@@ -1,5 +1,5 @@
 // Package md5 computes MD5 checksum for large files
-package md5
+package checksum
 
 import (
 	"bufio"
