@@ -1,4 +1,4 @@
-// Package md5 computes MD5 checksum for large files
+// Package checksum computes checksums, like MD5 or SHA256, for large files
 package checksum
 
 import (
