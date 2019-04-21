@@ -5,10 +5,6 @@ checksum
 
 Computing message digest in golang for potentially large files.
 
-Install
---
-`go get -d gopkg.in/codingsince1985/checksum.v2`
-
 Usage
 --
 ```go
@@ -16,13 +12,15 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/codingsince1985/checksum.v2"
+	"github.com/codingsince1985/checksum"
 )
 
 func main() {
 	file := "/home/jerry/Downloads/ubuntu-gnome-16.04-desktop-amd64.iso"
-	md5sum, _ := checksum.MD5sum(file)
-	fmt.Println(md5sum)
+	md5, _ := checksum.MD5sum(file)
+	fmt.Println(md5)
+	sha256, _ := checksum.SHA256sum(file)
+	fmt.Println(sha256)
 }
 ```
 License
