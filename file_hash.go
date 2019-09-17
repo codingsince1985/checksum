@@ -5,9 +5,7 @@ import (
 	"bufio"
 	"crypto/md5"
 	"crypto/sha256"
-	"fmt"
 	"hash"
-	"io"
 	"os"
 )
 
@@ -35,18 +33,6 @@ func Sum(hashAlgorithm hash.Hash, filename string) (string, error) {
 	}
 	defer func() { _ = file.Close() }()
 
-	buf := make([]byte, bufferSize)
 	reader := bufio.NewReader(file)
-here:
-	for {
-		switch n, err := reader.Read(buf); err {
-		case nil:
-			hashAlgorithm.Write(buf[:n])
-		case io.EOF:
-			break here
-		default:
-			return "", err
-		}
-	}
-	return fmt.Sprintf("%x", hashAlgorithm.Sum(nil)), nil
+	return SumReader(hashAlgorithm, reader)
 }
