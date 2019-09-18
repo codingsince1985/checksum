@@ -9,20 +9,18 @@ import (
 	"os"
 )
 
-const bufferSize = 65536
-
 // MD5sum returns MD5 checksum of filename
 func MD5sum(filename string) (string, error) {
-	return Sum(md5.New(), filename)
+	return sum(md5.New(), filename)
 }
 
 // SHA256sum returns SHA256 checksum of filename
 func SHA256sum(filename string) (string, error) {
-	return Sum(sha256.New(), filename)
+	return sum(sha256.New(), filename)
 }
 
-// Sum calculates the hash based on a provided hash provider
-func Sum(hashAlgorithm hash.Hash, filename string) (string, error) {
+// sum calculates the hash based on a provided hash provider
+func sum(hashAlgorithm hash.Hash, filename string) (string, error) {
 	if info, err := os.Stat(filename); err != nil || info.IsDir() {
 		return "", err
 	}
@@ -33,6 +31,5 @@ func Sum(hashAlgorithm hash.Hash, filename string) (string, error) {
 	}
 	defer func() { _ = file.Close() }()
 
-	reader := bufio.NewReader(file)
-	return SumReader(hashAlgorithm, reader)
+	return sumReader(hashAlgorithm, bufio.NewReader(file))
 }

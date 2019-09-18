@@ -1,6 +1,7 @@
-package checksum
+package checksum_test
 
 import (
+	"github.com/codingsince1985/checksum"
 	"github.com/mitchellh/go-homedir"
 	"io/ioutil"
 	"os"
@@ -32,7 +33,7 @@ func TestSHA256sumFile(t *testing.T) {
 		}
 	}()
 
-	if sha256sum, err := SHA256sum(file); err != nil || sha256sum != "1307990e6ba5ca145eb35e99182a9bec46531bc54ddf656a602c780fa0240dee" {
+	if sha256sum, err := checksum.SHA256sum(file); err != nil || sha256sum != "1307990e6ba5ca145eb35e99182a9bec46531bc54ddf656a602c780fa0240dee" {
 		t.Error("SHA256sum(file) failed", sha256sum, err)
 	}
 }
@@ -50,7 +51,7 @@ func TestMd5sumFile(t *testing.T) {
 		}
 	}()
 
-	if md5sum, err := MD5sum(file); err != nil || md5sum != "1e50210a0202497fb79bc38b6ade6c34" {
+	if md5sum, err := checksum.MD5sum(file); err != nil || md5sum != "1e50210a0202497fb79bc38b6ade6c34" {
 		t.Error("Md5sum(file) failed", md5sum, err)
 	}
 }
@@ -63,7 +64,7 @@ func TestMd5sumDir(t *testing.T) {
 	}
 	file := path.Join(homeDirectory, "Downloads")
 
-	if md5sum, err := MD5sum(file); err != nil || md5sum != "" {
+	if md5sum, err := checksum.MD5sum(file); err != nil || md5sum != "" {
 		t.Error("Md5sum(dir) failed", md5sum, err)
 	}
 }
