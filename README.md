@@ -17,11 +17,16 @@ import (
 )
 
 func main() {
-	file := "/home/jerry/Downloads/ubuntu-gnome-16.04-desktop-amd64.iso"
+	file := "/home/jerry/Downloads/ubuntu-20.04.2.0-desktop-amd64.iso"
+
 	md5, _ := checksum.MD5sum(file)
 	fmt.Println(md5)
+
 	sha256, _ := checksum.SHA256sum(file)
 	fmt.Println(sha256)
+
+	sha1, _ := checksum.SHA1sum(file)
+	fmt.Println(sha1)
 }
 ```
 License

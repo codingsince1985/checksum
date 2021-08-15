@@ -20,6 +20,24 @@ func prepareFile() (string, error) {
 	return file.Name(), nil
 }
 
+func TestSHA1sumFile(t *testing.T) {
+	file, err := prepareFile()
+	if err != nil {
+		t.Logf("could not create test file: %s", err)
+		t.FailNow()
+	}
+	defer func() {
+		err := os.Remove(file)
+		if err != nil {
+			t.Logf("could not remove test file: %s", err)
+		}
+	}()
+
+	if sha1sum, err := checksum.SHA1sum(file); err != nil || sha1sum != "baf34551fecb48acc3da868eb85e1b6dac9de356" {
+		t.Error("SHA256sum(file) failed", sha1sum, err)
+	}
+}
+
 func TestSHA256sumFile(t *testing.T) {
 	file, err := prepareFile()
 	if err != nil {

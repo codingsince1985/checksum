@@ -2,6 +2,7 @@ package checksum
 
 import (
 	"crypto/md5"
+	"crypto/sha1"
 	"crypto/sha256"
 	"fmt"
 	"hash"
@@ -18,6 +19,11 @@ func MD5sumReader(reader io.Reader) (string, error) {
 // SHA256sumReader returns SHA256 checksum of content in reader
 func SHA256sumReader(reader io.Reader) (string, error) {
 	return sumReader(sha256.New(), reader)
+}
+
+// SHA1sumReader returns SHA1 checksum of content in reader
+func SHA1sumReader(reader io.Reader) (string, error) {
+	return sumReader(sha1.New(), reader)
 }
 
 // sumReader calculates the hash based on a provided hash provider

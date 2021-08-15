@@ -4,6 +4,7 @@ package checksum
 import (
 	"bufio"
 	"crypto/md5"
+	"crypto/sha1"
 	"crypto/sha256"
 	"hash"
 	"os"
@@ -17,6 +18,11 @@ func MD5sum(filename string) (string, error) {
 // SHA256sum returns SHA256 checksum of filename
 func SHA256sum(filename string) (string, error) {
 	return sum(sha256.New(), filename)
+}
+
+// SHA1sum returns SHA1 checksum of filename
+func SHA1sum(filename string) (string, error) {
+	return sum(sha1.New(), filename)
 }
 
 // sum calculates the hash based on a provided hash provider
