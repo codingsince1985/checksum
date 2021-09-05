@@ -41,7 +41,7 @@ func testFile(t *testing.T, checksumFunc func(string) error) {
 func TestSHA1sumFile(t *testing.T) {
 	testFile(t, func(filename string) error {
 		if result, err := checksum.SHA1sum(filename); err != nil || result != "baf34551fecb48acc3da868eb85e1b6dac9de356" {
-			return fmt.Errorf("SHA1sum(file) failed: %s", result)
+			return fmt.Errorf(result, err)
 		}
 		return nil
 	})
@@ -50,7 +50,7 @@ func TestSHA1sumFile(t *testing.T) {
 func TestSHA256sumFile(t *testing.T) {
 	testFile(t, func(filename string) error {
 		if result, err := checksum.SHA256sum(filename); err != nil || result != "1307990e6ba5ca145eb35e99182a9bec46531bc54ddf656a602c780fa0240dee" {
-			return fmt.Errorf("SHA256sum(file) failed: %s", result)
+			return fmt.Errorf(result, err)
 		}
 		return nil
 	})
@@ -59,7 +59,7 @@ func TestSHA256sumFile(t *testing.T) {
 func TestMd5sumFile(t *testing.T) {
 	testFile(t, func(filename string) error {
 		if result, err := checksum.MD5sum(filename); err != nil || result != "1e50210a0202497fb79bc38b6ade6c34" {
-			return fmt.Errorf("Md5sum(file) failed: %s", result)
+			return fmt.Errorf(result, err)
 		}
 		return nil
 	})
