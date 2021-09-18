@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"hash"
+	"hash/crc32"
 	"io"
 )
 
@@ -24,6 +25,28 @@ func SHA256sumReader(reader io.Reader) (string, error) {
 // SHA1sumReader returns SHA1 checksum of content in reader
 func SHA1sumReader(reader io.Reader) (string, error) {
 	return sumReader(sha1.New(), reader)
+}
+
+// SHA1sumReader returns SHA1 checksum of content in reader
+func CrcReader(reader io.Reader) (string, error) {
+	return crcReader(reader)
+}
+
+// crcReader calculates the checksm based on a provided crc table
+func crcReader(reader io.Reader) (string, error) {
+	table := crc32.MakeTable(crc32.IEEE)
+	checksum := crc32.Checksum([]byte(""), table)
+	buf := make([]byte, bufferSize)
+	for {
+		switch n, err := reader.Read(buf); err {
+		case nil:
+			checksum = crc32.Update(checksum, table, buf[:n])
+		case io.EOF:
+			return fmt.Sprintf("%x", checksum), nil
+		default:
+			return "", err
+		}
+	}
 }
 
 // sumReader calculates the hash based on a provided hash provider
