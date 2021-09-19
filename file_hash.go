@@ -26,7 +26,7 @@ func SHA1sum(filename string) (string, error) {
 }
 
 // Crc32 returns CRC-32-IEEE checksum of filename
-func Crc32(filename string) (string, error) {
+func CRC32(filename string) (string, error) {
 	if info, err := os.Stat(filename); err != nil || info.IsDir() {
 		return "", err
 	}
@@ -37,7 +37,7 @@ func Crc32(filename string) (string, error) {
 	}
 	defer func() { _ = file.Close() }()
 
-	return crcReader(bufio.NewReader(file))
+	return CRCReader(bufio.NewReader(file))
 }
 
 // sum calculates the hash based on a provided hash provider

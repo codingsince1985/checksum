@@ -27,13 +27,8 @@ func SHA1sumReader(reader io.Reader) (string, error) {
 	return sumReader(sha1.New(), reader)
 }
 
-// SHA1sumReader returns SHA1 checksum of content in reader
-func CrcReader(reader io.Reader) (string, error) {
-	return crcReader(reader)
-}
-
-// crcReader calculates the checksm based on a provided crc table
-func crcReader(reader io.Reader) (string, error) {
+// CRCReader returns CRC-32-IEEE checksum of content in reader
+func CRCReader(reader io.Reader) (string, error) {
 	table := crc32.MakeTable(crc32.IEEE)
 	checksum := crc32.Checksum([]byte(""), table)
 	buf := make([]byte, bufferSize)

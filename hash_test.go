@@ -25,7 +25,7 @@ func TestMd5sumReader(t *testing.T) {
 }
 
 func TestCrcReader(t *testing.T) {
-	if result, err := checksum.CrcReader(strings.NewReader("some data")); err != nil || result != "d9c2e91e" {
+	if result, err := checksum.CRCReader(strings.NewReader("some data")); err != nil || result != "d9c2e91e" {
 		t.Error(result, err)
 	}
 }

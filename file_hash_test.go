@@ -67,7 +67,7 @@ func TestMd5sumFile(t *testing.T) {
 
 func TestCrc32File(t *testing.T) {
 	testFile(t, func(filename string) error {
-		if result, err := checksum.Crc32(filename); err != nil || result != "d9c2e91e" {
+		if result, err := checksum.CRC32(filename); err != nil || result != "d9c2e91e" {
 			return fmt.Errorf(result, err)
 		}
 		return nil

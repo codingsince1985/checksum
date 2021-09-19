@@ -28,7 +28,7 @@ func main() {
 	sha1, _ := checksum.SHA1sum(file)
 	fmt.Println(sha1)
 
-	crc32, _ := checksum.Crc32(file)
+	crc32, _ := checksum.CRC32(file)
 	fmt.Println(crc32)
 }
 ```
