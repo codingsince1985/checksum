@@ -25,7 +25,7 @@ func SHA1sum(filename string) (string, error) {
 	return sum(sha1.New(), filename)
 }
 
-// Crc32 returns CRC-32-IEEE checksum of filename
+// CRC32 returns CRC-32-IEEE checksum of filename
 func CRC32(filename string) (string, error) {
 	if info, err := os.Stat(filename); err != nil || info.IsDir() {
 		return "", err
