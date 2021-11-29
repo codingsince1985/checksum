@@ -8,6 +8,8 @@ import (
 	"hash"
 	"hash/crc32"
 	"io"
+
+	"golang.org/x/crypto/blake2s"
 )
 
 const bufferSize = 65536
@@ -25,6 +27,12 @@ func SHA256sumReader(reader io.Reader) (string, error) {
 // SHA1sumReader returns SHA1 checksum of content in reader
 func SHA1sumReader(reader io.Reader) (string, error) {
 	return sumReader(sha1.New(), reader)
+}
+
+// Blake2s256Reader returns SHA1 checksum of content in reader
+func Blake2s256Reader(reader io.Reader) (string, error) {
+	hash, _ := blake2s.New256([]byte{})
+	return sumReader(hash, reader)
 }
 
 // CRCReader returns CRC-32-IEEE checksum of content in reader

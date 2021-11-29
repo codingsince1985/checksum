@@ -8,6 +8,8 @@ import (
 	"crypto/sha256"
 	"hash"
 	"os"
+
+	"golang.org/x/crypto/blake2s"
 )
 
 // MD5sum returns MD5 checksum of filename
@@ -23,6 +25,12 @@ func SHA256sum(filename string) (string, error) {
 // SHA1sum returns SHA1 checksum of filename
 func SHA1sum(filename string) (string, error) {
 	return sum(sha1.New(), filename)
+}
+
+// Blake2s256 returns BLAKE2s-256 checksum of filename
+func Blake2s256(filename string) (string, error) {
+	hash, _ := blake2s.New256([]byte{})
+	return sum(hash, filename)
 }
 
 // CRC32 returns CRC-32-IEEE checksum of filename

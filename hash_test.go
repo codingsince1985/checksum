@@ -29,3 +29,9 @@ func TestCrcReader(t *testing.T) {
 		t.Error(result, err)
 	}
 }
+
+func TestBlake2s256Reader(t *testing.T) {
+	if result, err := checksum.Blake2s256Reader(strings.NewReader("some data")); err != nil || result != "54fc4fe89148c8f82479348f56168f71c4165eedda67961daec1d46015db3884" {
+		t.Error(result, err)
+	}
+}

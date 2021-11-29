@@ -38,6 +38,15 @@ func testFile(t *testing.T, checksumFunc func(string) error) {
 	}
 }
 
+func TestBlake2s256(t *testing.T) {
+	testFile(t, func(filename string) error {
+		if result, err := checksum.Blake2s256(filename); err != nil || result != "54fc4fe89148c8f82479348f56168f71c4165eedda67961daec1d46015db3884" {
+			return fmt.Errorf(result, err)
+		}
+		return nil
+	})
+}
+
 func TestSHA1sumFile(t *testing.T) {
 	testFile(t, func(filename string) error {
 		if result, err := checksum.SHA1sum(filename); err != nil || result != "baf34551fecb48acc3da868eb85e1b6dac9de356" {
