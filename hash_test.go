@@ -13,25 +13,25 @@ func TestSHA1sumReader(t *testing.T) {
 }
 
 func TestSHA256sumReader(t *testing.T) {
-	if result, err := checksum.SHA256sumReader(strings.NewReader("some data")); err != nil || result != "1307990e6ba5ca145eb35e99182a9bec46531bc54ddf656a602c780fa0240dee" {
+	if result, err := checksum.SHA256sumReader(strings.NewReader("dot")); err != nil || result != "e392dad8b08599f74d4819cd291feef81ab4389e0a6fae2b1286f99411b0c7ca" {
 		t.Error(result, err)
 	}
 }
 
 func TestMd5sumReader(t *testing.T) {
-	if result, err := checksum.MD5sumReader(strings.NewReader("some data")); err != nil || result != "1e50210a0202497fb79bc38b6ade6c34" {
+	if result, err := checksum.MD5sumReader(strings.NewReader("dot")); err != nil || result != "69eb76c88557a8211cbfc9beda5fc062" {
 		t.Error(result, err)
 	}
 }
 
 func TestCrcReader(t *testing.T) {
-	if result, err := checksum.CRCReader(strings.NewReader("some data")); err != nil || result != "d9c2e91e" {
+	if result, err := checksum.CRCReader(strings.NewReader("dot")); err != nil || result != "059278a3" {
 		t.Error(result, err)
 	}
 }
 
 func TestBlake2s256Reader(t *testing.T) {
-	if result, err := checksum.Blake2s256Reader(strings.NewReader("some data")); err != nil || result != "54fc4fe89148c8f82479348f56168f71c4165eedda67961daec1d46015db3884" {
+	if result, err := checksum.Blake2s256Reader(strings.NewReader("dot")); err != nil || result != "e364d604d2573afa9f0882f8a50458c4c9c16ca185ab97c5ec1fc71bfc7063bf" {
 		t.Error(result, err)
 	}
 }

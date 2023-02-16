@@ -45,7 +45,7 @@ func CRCReader(reader io.Reader) (string, error) {
 		case nil:
 			checksum = crc32.Update(checksum, table, buf[:n])
 		case io.EOF:
-			return fmt.Sprintf("%x", checksum), nil
+			return fmt.Sprintf("%08x", checksum), nil
 		default:
 			return "", err
 		}
